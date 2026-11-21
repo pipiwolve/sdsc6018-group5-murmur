@@ -1,0 +1,157 @@
+{
+  "threshold": 0.3636363636363636,
+  "test_operating_point": {
+    "threshold": 0.3636363636363636,
+    "tp": 18,
+    "fp": 18,
+    "fn": 5,
+    "tn": 80,
+    "fp_per_100": 14.87603305785124,
+    "fn_per_100": 4.132231404958677
+  },
+  "validation_abstention": {
+    "half_width": 0.4186046511626955,
+    "labeled_coverage": 0.8770491803278688,
+    "precision_answered": 1.0,
+    "recall_answered": 0.6111111111111112,
+    "unknown_among_abstained": 0.0625,
+    "unknown_abstained": 0.1111111111111111,
+    "n_abstained": 16
+  },
+  "test_abstention": {
+    "half_width": 0.4186046511626955,
+    "labeled_coverage": 0.8264462809917356,
+    "precision_answered": 0.8,
+    "recall_answered": 0.7058823529411765,
+    "unknown_among_abstained": 0.125,
+    "unknown_abstained": 0.3,
+    "n_abstained": 24
+  },
+  "subgroups_raw_test": [
+    {
+      "age": "Adolescent",
+      "sex": "Female",
+      "n": 4,
+      "n_present": 2,
+      "auroc": null,
+      "small_cell": true
+    },
+    {
+      "age": "Adolescent",
+      "sex": "Male",
+      "n": 7,
+      "n_present": 1,
+      "auroc": null,
+      "small_cell": true
+    },
+    {
+      "age": "Child",
+      "sex": "Female",
+      "n": 32,
+      "n_present": 5,
+      "auroc": 0.962962962962963,
+      "small_cell": false
+    },
+    {
+      "age": "Child",
+      "sex": "Male",
+      "n": 49,
+      "n_present": 11,
+      "auroc": 0.868421052631579,
+      "small_cell": false
+    },
+    {
+      "age": "Infant",
+      "sex": "Female",
+      "n": 8,
+      "n_present": 3,
+      "auroc": null,
+      "small_cell": true
+    },
+    {
+      "age": "Infant",
+      "sex": "Male",
+      "n": 6,
+      "n_present": 0,
+      "auroc": null,
+      "small_cell": true
+    },
+    {
+      "age": "Missing",
+      "sex": "Female",
+      "n": 13,
+      "n_present": 1,
+      "auroc": null,
+      "small_cell": true
+    },
+    {
+      "age": "Missing",
+      "sex": "Male",
+      "n": 1,
+      "n_present": 0,
+      "auroc": null,
+      "small_cell": true
+    },
+    {
+      "age": "Neonate",
+      "sex": "Male",
+      "n": 1,
+      "n_present": 0,
+      "auroc": null,
+      "small_cell": true
+    }
+  ],
+  "error_summary": {
+    "correct": {
+      "n": 98,
+      "mean_sites": 3.520408163265306,
+      "age": {
+        "Child": 67,
+        "Missing": 13,
+        "Adolescent": 10,
+        "Infant": 8
+      }
+    },
+    "false_negative": {
+      "n": 5,
+      "mean_sites": 3.2,
+      "age": {
+        "Child": 2,
+        "Missing": 1,
+        "Adolescent": 1,
+        "Infant": 1
+      }
+    },
+    "false_positive": {
+      "n": 18,
+      "mean_sites": 3.1666666666666665,
+      "age": {
+        "Child": 12,
+        "Infant": 5,
+        "Neonate": 1
+      }
+    }
+  },
+  "reliability": [
+    {
+      "mean_score": 0.07611405976676715,
+      "observed": 0.058823529411764705,
+      "n": 85
+    },
+    {
+      "mean_score": 0.36363636363636354,
+      "observed": 0.2,
+      "n": 15
+    },
+    {
+      "mean_score": 0.5,
+      "observed": 0.5,
+      "n": 6
+    },
+    {
+      "mean_score": 1.0,
+      "observed": 0.8,
+      "n": 15
+    }
+  ]
+}

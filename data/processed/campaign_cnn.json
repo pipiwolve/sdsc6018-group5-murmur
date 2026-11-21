@@ -1,0 +1,63 @@
+{
+  "score_placement": {
+    "half_width": 0.4186046511626955,
+    "splits": {
+      "val": {
+        "Absent": {
+          "n": 98,
+          "median": 0.0813953488372093,
+          "inside_band": 9
+        },
+        "Present": {
+          "n": 24,
+          "median": 0.5,
+          "inside_band": 6
+        },
+        "Unknown": {
+          "n": 9,
+          "median": 0.0813953488372093,
+          "inside_band": 1
+        }
+      },
+      "test": {
+        "Absent": {
+          "n": 98,
+          "median": 0.0813953488372093,
+          "inside_band": 15
+        },
+        "Present": {
+          "n": 23,
+          "median": 1.0,
+          "inside_band": 6
+        },
+        "Unknown": {
+          "n": 10,
+          "median": 0.0813953488372093,
+          "inside_band": 3
+        }
+      }
+    }
+  },
+  "campaign_cnn": {
+    "clip_samples": 32000,
+    "calibrator": "isotonic",
+    "train_children": 240,
+    "validation_children": 61,
+    "test_children_2015": 509,
+    "best_2014_validation_auprc": 0.5139238031394894,
+    "year_2015_raw": {
+      "n": 509,
+      "n_present": 116,
+      "auroc": 0.723984381854874,
+      "auprc": 0.5524863476633357,
+      "brier": 0.21720066009760283
+    },
+    "year_2015_calibrated": {
+      "n": 509,
+      "n_present": 116,
+      "auroc": 0.7199482319908749,
+      "auprc": 0.47367454868416653,
+      "brier": 0.15400824005663932
+    }
+  }
+}

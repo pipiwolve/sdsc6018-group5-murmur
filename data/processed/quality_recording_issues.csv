@@ -1,0 +1,2 @@
+patient_id,site,wav,fs,nsig,fmt,duration,size_ok,n_segments,bad_segments,zero_markers,cycle_sec,unknown_sec,cycle_frac,has_s1,has_s2,problem
+50782,MV,50782_MV_1.wav,4000.0,1,16+44,28.496,True,1,0,1,0.0,0.0,0.0,False,False,segmentation

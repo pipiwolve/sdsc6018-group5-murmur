@@ -1,0 +1,36 @@
+{
+  "clip_samples": 32000,
+  "hop": 128,
+  "n_mels": 32,
+  "seconds_cap": 8.0,
+  "best_validation_auprc_raw": 0.7208564620136799,
+  "calibrator": "isotonic",
+  "validation_raw": {
+    "n": 122,
+    "n_present": 24,
+    "auroc": 0.8014455782312925,
+    "auprc": 0.7208564620136799,
+    "brier": 0.1403955467180524
+  },
+  "validation_calibrated": {
+    "n": 122,
+    "n_present": 24,
+    "auroc": 0.8454506802721089,
+    "auprc": 0.7020299145299145,
+    "brier": 0.08176792707864
+  },
+  "test_raw": {
+    "n": 121,
+    "n_present": 23,
+    "auroc": 0.862466725820763,
+    "auprc": 0.6845412306658292,
+    "brier": 0.14426729913970276
+  },
+  "test_calibrated": {
+    "n": 121,
+    "n_present": 23,
+    "auroc": 0.8480479148181012,
+    "auprc": 0.6192546583850933,
+    "brier": 0.09927808030586326
+  }
+}

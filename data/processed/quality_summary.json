@@ -1,0 +1,21 @@
+{
+  "txt": 942,
+  "wav": 3163,
+  "children": 872,
+  "label_counts": {
+    "Absent": 652,
+    "Present": 158,
+    "Unknown": 62
+  },
+  "format_bad": 0,
+  "segmentation_bad": 1,
+  "selected_recordings": 2925,
+  "duplicate_site_groups": 16,
+  "selected_cycle_median": 0.5181971051699719,
+  "selected_cycle_mean": 0.5460975518687418,
+  "selected_cycle_below_half": 1404,
+  "all_cycle_median": 0.5169117386685553,
+  "duration_hours_all": 20.094100763888893,
+  "duration_hours_selected": 18.266551111111113,
+  "failures": []
+}
