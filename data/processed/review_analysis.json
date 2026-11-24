@@ -1,0 +1,783 @@
+{
+  "bootstrap_seed": 6018,
+  "bootstrap_replicates": 10000,
+  "test_n": 121,
+  "test_present": 23,
+  "test_unknown": 10,
+  "models": {
+    "logistic": {
+      "auroc": {
+        "point": 0.7555456965394853,
+        "ci": [
+          0.6391166863439591,
+          0.8599664948453608
+        ],
+        "valid_replicates": 10000
+      },
+      "auprc": {
+        "point": 0.5190236094729054,
+        "ci": [
+          0.32961276111588095,
+          0.7055706697116578
+        ],
+        "valid_replicates": 10000
+      },
+      "raw_brier": 0.18280199054334306,
+      "cal_brier": 0.13771691518895493,
+      "delta_brier": {
+        "point": -0.04508507535438817,
+        "ci": [
+          -0.0826857080555717,
+          -0.0061791947971478875
+        ],
+        "valid_replicates": 10000
+      }
+    },
+    "xgboost": {
+      "auroc": {
+        "point": 0.738243123336291,
+        "ci": [
+          0.609263085399449,
+          0.8564766481310705
+        ],
+        "valid_replicates": 10000
+      },
+      "auprc": {
+        "point": 0.5215776598528047,
+        "ci": [
+          0.3342303241426861,
+          0.705268902862706
+        ],
+        "valid_replicates": 10000
+      },
+      "raw_brier": 0.1456042299841437,
+      "cal_brier": 0.12418781573992092,
+      "delta_brier": {
+        "point": -0.021416414244222814,
+        "ci": [
+          -0.040193529713604376,
+          -0.0019546482992208914
+        ],
+        "valid_replicates": 10000
+      }
+    },
+    "cnn": {
+      "auroc": {
+        "point": 0.862466725820763,
+        "ci": [
+          0.7612459709349663,
+          0.9458740017746229
+        ],
+        "valid_replicates": 10000
+      },
+      "auprc": {
+        "point": 0.6845412306658292,
+        "ci": [
+          0.4873192130041445,
+          0.8723522081094416
+        ],
+        "valid_replicates": 10000
+      },
+      "raw_brier": 0.1442672991397027,
+      "cal_brier": 0.09927808030586326,
+      "delta_brier": {
+        "point": -0.04498921883383948,
+        "ci": [
+          -0.06736984180535033,
+          -0.01896708232847074
+        ],
+        "valid_replicates": 10000
+      }
+    }
+  },
+  "vs_logistic": {
+    "xgboost": {
+      "auroc": {
+        "point": -0.017302573203194282,
+        "ci": [
+          -0.09734068818545664,
+          0.06566464915452205
+        ],
+        "valid_replicates": 10000
+      },
+      "auprc": {
+        "point": 0.0025540503798993086,
+        "ci": [
+          -0.10546039628003707,
+          0.10644112085475049
+        ],
+        "valid_replicates": 10000
+      }
+    },
+    "cnn": {
+      "auroc": {
+        "point": 0.10692102928127767,
+        "ci": [
+          0.029166666666666785,
+          0.1944479166666667
+        ],
+        "valid_replicates": 10000
+      },
+      "auprc": {
+        "point": 0.1655176211929238,
+        "ci": [
+          -0.006112420698004312,
+          0.354248765940912
+        ],
+        "valid_replicates": 10000
+      }
+    }
+  },
+  "calibrator_sensitivity": {
+    "logistic": {
+      "val": {
+        "raw": 0.18809059913148815,
+        "platt": 0.14277512318636304,
+        "isotonic": 0.10772699285055543
+      },
+      "test": {
+        "raw": 0.18280199054334306,
+        "platt": 0.13610794838671333,
+        "isotonic": 0.13771691518895493
+      }
+    },
+    "xgboost": {
+      "val": {
+        "raw": 0.14022058248600877,
+        "platt": 0.13379774469533048,
+        "isotonic": 0.111614104104872
+      },
+      "test": {
+        "raw": 0.1456042299841437,
+        "platt": 0.13246552979180934,
+        "isotonic": 0.12418781573992092
+      }
+    },
+    "cnn": {
+      "val": {
+        "raw": 0.1403955467180524,
+        "platt": 0.12264820379129823,
+        "isotonic": 0.08176792707864002
+      },
+      "test": {
+        "raw": 0.1442672991397027,
+        "platt": 0.11707342516075878,
+        "isotonic": 0.09927808030586326
+      }
+    }
+  },
+  "abstention": {
+    "coverage": {
+      "numerator": 100,
+      "denominator": 121,
+      "point": 0.8264462809917356,
+      "ci": [
+        0.7603305785123967,
+        0.8925619834710744
+      ],
+      "valid_replicates": 10000
+    },
+    "ppv": {
+      "numerator": 12,
+      "denominator": 15,
+      "point": 0.8,
+      "ci": [
+        0.5714285714285714,
+        1.0
+      ],
+      "valid_replicates": 10000
+    },
+    "within_answered_recall": {
+      "numerator": 12,
+      "denominator": 17,
+      "point": 0.7058823529411765,
+      "ci": [
+        0.4666666666666667,
+        0.9230769230769231
+      ],
+      "valid_replicates": 10000
+    },
+    "overall_recall": {
+      "numerator": 12,
+      "denominator": 23,
+      "point": 0.5217391304347826,
+      "ci": [
+        0.3076923076923077,
+        0.7307692307692307
+      ],
+      "valid_replicates": 10000
+    },
+    "unknown_recall": {
+      "numerator": 3,
+      "denominator": 10,
+      "point": 0.3,
+      "ci": [
+        0.0,
+        0.6
+      ],
+      "valid_replicates": 10000
+    },
+    "unknown_share": {
+      "numerator": 3,
+      "denominator": 24,
+      "point": 0.125,
+      "ci": [
+        0.0,
+        0.25
+      ],
+      "valid_replicates": 10000
+    },
+    "exact_unknown_recall_ci": [
+      0.06673951117773447,
+      0.652452850060008
+    ],
+    "tp": 12,
+    "fp": 3,
+    "fn_answered": 5,
+    "present_withheld": 6,
+    "low": 0.08139534883730448,
+    "high": 0.9186046511626955
+  },
+  "subgroups": [
+    {
+      "dimension": "age",
+      "group": "Adolescent",
+      "n": 11,
+      "n_present": 3,
+      "observed": 0.2727272727272727,
+      "models": {
+        "logistic": {
+          "mean": 0.1646786049771124,
+          "brier": 0.17009411766742877,
+          "gap": {
+            "point": -0.10804866775016034,
+            "ci": null
+          }
+        },
+        "xgboost": {
+          "mean": 0.22322776507247577,
+          "brier": 0.23854889676862412,
+          "gap": {
+            "point": -0.049499507654796944,
+            "ci": null
+          }
+        },
+        "cnn": {
+          "mean": 0.20295983086680766,
+          "brier": 0.10425782978514185,
+          "gap": {
+            "point": -0.06976744186046512,
+            "ci": null
+          }
+        }
+      }
+    },
+    {
+      "dimension": "age",
+      "group": "Child",
+      "n": 81,
+      "n_present": 16,
+      "observed": 0.19753086419753085,
+      "models": {
+        "logistic": {
+          "mean": 0.2462934538045467,
+          "brier": 0.1504267810773107,
+          "gap": {
+            "point": 0.04876258960701584,
+            "ci": [
+              -0.03424697388537499,
+              0.12846592104893537
+            ],
+            "valid_replicates": 10000
+          }
+        },
+        "xgboost": {
+          "mean": 0.2009976683759395,
+          "brier": 0.11562229800859362,
+          "gap": {
+            "point": 0.003466804178408625,
+            "ci": [
+              -0.07098309980406438,
+              0.07346206863215307
+            ],
+            "valid_replicates": 10000
+          }
+        },
+        "cnn": {
+          "mean": 0.24573904418865658,
+          "brier": 0.06722192396676557,
+          "gap": {
+            "point": 0.04820817999112571,
+            "ci": [
+              -0.008263187429854109,
+              0.09918532873959224
+            ],
+            "valid_replicates": 10000
+          }
+        }
+      }
+    },
+    {
+      "dimension": "age",
+      "group": "Infant",
+      "n": 14,
+      "n_present": 3,
+      "observed": 0.21428571428571427,
+      "models": {
+        "logistic": {
+          "mean": 0.20043057920462787,
+          "brier": 0.12118931735825834,
+          "gap": {
+            "point": -0.013855135081086425,
+            "ci": null
+          }
+        },
+        "xgboost": {
+          "mean": 0.23175365318145072,
+          "brier": 0.11107997666192479,
+          "gap": {
+            "point": 0.01746793889573642,
+            "ci": null
+          }
+        },
+        "cnn": {
+          "mean": 0.4121866505587436,
+          "brier": 0.2501833372389939,
+          "gap": {
+            "point": 0.19790093627302932,
+            "ci": null
+          }
+        }
+      }
+    },
+    {
+      "dimension": "age",
+      "group": "Missing",
+      "n": 14,
+      "n_present": 1,
+      "observed": 0.07142857142857142,
+      "models": {
+        "logistic": {
+          "mean": 0.09324257831720516,
+          "brier": 0.06381768753035268,
+          "gap": {
+            "point": 0.021814006888633726,
+            "ci": null
+          }
+        },
+        "xgboost": {
+          "mean": 0.08140410482883453,
+          "brier": 0.08015442853587895,
+          "gap": {
+            "point": 0.00997553340026309,
+            "ci": null
+          }
+        },
+        "cnn": {
+          "mean": 0.07258619343444173,
+          "brier": 0.06559064476564068,
+          "gap": {
+            "point": 0.0011576220058702794,
+            "ci": null
+          }
+        }
+      }
+    },
+    {
+      "dimension": "age",
+      "group": "Neonate",
+      "n": 1,
+      "n_present": 0,
+      "observed": 0.0,
+      "models": {
+        "logistic": {
+          "mean": 0.1343283582089552,
+          "brier": 0.01804410781911338,
+          "gap": {
+            "point": 0.1343283582089552,
+            "ci": null
+          }
+        },
+        "xgboost": {
+          "mean": 0.6000000238418579,
+          "brier": 0.36000002861023006,
+          "gap": {
+            "point": 0.6000000238418579,
+            "ci": null
+          }
+        },
+        "cnn": {
+          "mean": 1.0,
+          "brier": 1.0,
+          "gap": {
+            "point": 1.0,
+            "ci": null
+          }
+        }
+      }
+    },
+    {
+      "dimension": "sex",
+      "group": "Female",
+      "n": 57,
+      "n_present": 11,
+      "observed": 0.19298245614035087,
+      "models": {
+        "logistic": {
+          "mean": 0.22898046890978485,
+          "brier": 0.13415221897876722,
+          "gap": {
+            "point": 0.035998012769433964,
+            "ci": [
+              -0.060399883737034435,
+              0.1289330171007311
+            ],
+            "valid_replicates": 10000
+          }
+        },
+        "xgboost": {
+          "mean": 0.18529526065838964,
+          "brier": 0.10228698936392445,
+          "gap": {
+            "point": -0.007687195481961237,
+            "ci": [
+              -0.09610924011651883,
+              0.06891926262985193
+            ],
+            "valid_replicates": 10000
+          }
+        },
+        "cnn": {
+          "mean": 0.2506645069887197,
+          "brier": 0.08944504375545888,
+          "gap": {
+            "point": 0.05768205084836885,
+            "ci": [
+              -0.021061319204670713,
+              0.13111015011311158
+            ],
+            "valid_replicates": 10000
+          }
+        }
+      }
+    },
+    {
+      "dimension": "sex",
+      "group": "Male",
+      "n": 64,
+      "n_present": 12,
+      "observed": 0.1875,
+      "models": {
+        "logistic": {
+          "mean": 0.2024234413839594,
+          "brier": 0.1408917227511534,
+          "gap": {
+            "point": 0.014923441383959398,
+            "ci": [
+              -0.08166336547847204,
+              0.10447663647243473
+            ],
+            "valid_replicates": 10000
+          }
+        },
+        "xgboost": {
+          "mean": 0.20560461457353085,
+          "brier": 0.14369323923104277,
+          "gap": {
+            "point": 0.01810461457353085,
+            "ci": [
+              -0.0774727809795877,
+              0.10547067080333362
+            ],
+            "valid_replicates": 10000
+          }
+        },
+        "cnn": {
+          "mean": 0.24431818181818182,
+          "brier": 0.10803562848356717,
+          "gap": {
+            "point": 0.05681818181818182,
+            "ci": [
+              -0.02486538715644821,
+              0.13340917349365744
+            ],
+            "valid_replicates": 10000
+          }
+        }
+      }
+    },
+    {
+      "dimension": "age \u00d7 sex",
+      "group": "Child / Female",
+      "n": 32,
+      "n_present": 5,
+      "observed": 0.15625,
+      "models": {
+        "logistic": {
+          "mean": 0.27902810808594386,
+          "brier": 0.12983456992907216,
+          "gap": {
+            "point": 0.12277810808594386,
+            "ci": [
+              0.00100209375512543,
+              0.2377108490856158
+            ],
+            "valid_replicates": 10000
+          }
+        },
+        "xgboost": {
+          "mean": 0.20398669480346143,
+          "brier": 0.07950599056181917,
+          "gap": {
+            "point": 0.04773669480346142,
+            "ci": [
+              -0.05820160325383767,
+              0.133014656137675
+            ],
+            "valid_replicates": 10000
+          }
+        },
+        "cnn": {
+          "mean": 0.23269027484143764,
+          "brier": 0.048949636055227536,
+          "gap": {
+            "point": 0.07644027484143762,
+            "ci": [
+              0.0013874207188160539,
+              0.14320163847780126
+            ],
+            "valid_replicates": 10000
+          }
+        }
+      }
+    },
+    {
+      "dimension": "age \u00d7 sex",
+      "group": "Child / Male",
+      "n": 49,
+      "n_present": 11,
+      "observed": 0.22448979591836735,
+      "models": {
+        "logistic": {
+          "mean": 0.22491572039628735,
+          "brier": 0.16387475570473173,
+          "gap": {
+            "point": 0.0004259244779199948,
+            "ci": [
+              -0.11621941375190747,
+              0.11044910628819188
+            ],
+            "valid_replicates": 10000
+          }
+        },
+        "xgboost": {
+          "mean": 0.19904565111714967,
+          "brier": 0.1392084579738341,
+          "gap": {
+            "point": -0.02544414480121769,
+            "ci": [
+              -0.13309196179390562,
+              0.07532542320918671
+            ],
+            "valid_replicates": 10000
+          }
+        },
+        "cnn": {
+          "mean": 0.25426068947663627,
+          "brier": 0.07915484668450469,
+          "gap": {
+            "point": 0.029770893558268962,
+            "ci": [
+              -0.05464469085731546,
+              0.10348783276524136
+            ],
+            "valid_replicates": 10000
+          }
+        }
+      }
+    }
+  ],
+  "errors": {
+    "cases": [
+      {
+        "child_id": 84969,
+        "patient_id": 84969,
+        "error": "FP",
+        "age": "Infant",
+        "murmur": "Absent",
+        "spectrum_site": "MV",
+        "site_coverage": {
+          "MV": 0.1030882181028724
+        },
+        "models": {
+          "logistic": {
+            "raw": 0.5996456047075231,
+            "calibrated": 0.1428571428571428,
+            "prediction": 0
+          },
+          "xgboost": {
+            "raw": 0.3892111778259277,
+            "calibrated": 0.1428571492433548,
+            "prediction": 0
+          },
+          "cnn": {
+            "raw": 0.9689711332321168,
+            "calibrated": 1.0,
+            "prediction": 1
+          }
+        }
+      },
+      {
+        "child_id": 85286,
+        "patient_id": 85286,
+        "error": "FP",
+        "age": "Child",
+        "murmur": "Absent",
+        "spectrum_site": "TV",
+        "site_coverage": {
+          "AV": 0.7654299107142858,
+          "PV": 0.5746890448446328,
+          "TV": 0.7754411875000001,
+          "MV": 0.6139671925241157
+        },
+        "models": {
+          "logistic": {
+            "raw": 0.9303742209226656,
+            "calibrated": 1.0,
+            "prediction": 1
+          },
+          "xgboost": {
+            "raw": 0.6078369617462158,
+            "calibrated": 0.5,
+            "prediction": 1
+          },
+          "cnn": {
+            "raw": 0.5485245883464813,
+            "calibrated": 0.5,
+            "prediction": 1
+          }
+        }
+      },
+      {
+        "child_id": 50258,
+        "patient_id": 50258,
+        "error": "FN",
+        "age": "Child",
+        "murmur": "Present",
+        "spectrum_site": "TV",
+        "site_coverage": {
+          "PV": 0.2013969594594594,
+          "TV": 0.3788527397260274,
+          "MV": 0.1134914319248826
+        },
+        "models": {
+          "logistic": {
+            "raw": 0.2658830288006898,
+            "calibrated": 0.1343283582089552,
+            "prediction": 0
+          },
+          "xgboost": {
+            "raw": 0.0934310182929039,
+            "calibrated": 0.0909090936183929,
+            "prediction": 0
+          },
+          "cnn": {
+            "raw": 0.3037033180395762,
+            "calibrated": 0.0813953488372093,
+            "prediction": 0
+          }
+        }
+      },
+      {
+        "child_id": 85269,
+        "patient_id": 85269,
+        "error": "FN",
+        "age": "Infant",
+        "murmur": "Present",
+        "spectrum_site": "AV",
+        "site_coverage": {
+          "AV": 0.3622426636568849,
+          "PV": 0.1893370317589576
+        },
+        "models": {
+          "logistic": {
+            "raw": 0.626113827676676,
+            "calibrated": 0.1428571428571428,
+            "prediction": 0
+          },
+          "xgboost": {
+            "raw": 0.5289044380187988,
+            "calibrated": 0.5,
+            "prediction": 1
+          },
+          "cnn": {
+            "raw": 0.3848025500774383,
+            "calibrated": 0.0813953488372093,
+            "prediction": 0
+          }
+        }
+      }
+    ],
+    "groups": {
+      "one_standard_site": {
+        "n": 9,
+        "n_absent": 6,
+        "n_present": 3,
+        "fp": 2,
+        "fn": 0
+      },
+      "multiple_standard_sites": {
+        "n": 112,
+        "n_absent": 92,
+        "n_present": 20,
+        "fp": 16,
+        "fn": 5
+      },
+      "infant": {
+        "n": 14,
+        "n_absent": 11,
+        "n_present": 3,
+        "fp": 5,
+        "fn": 1
+      },
+      "known_age_except_infant": {
+        "n": 93,
+        "n_absent": 74,
+        "n_present": 19,
+        "fp": 13,
+        "fn": 3
+      },
+      "mean_segmentation_below_25pct": {
+        "n": 16,
+        "n_absent": 11,
+        "n_present": 5,
+        "fp": 6,
+        "fn": 1
+      },
+      "mean_segmentation_at_least_25pct": {
+        "n": 105,
+        "n_absent": 87,
+        "n_present": 18,
+        "fp": 12,
+        "fn": 4
+      }
+    },
+    "overlap": {
+      "logistic": {
+        "FP": 3,
+        "FN": 5
+      },
+      "xgboost": {
+        "FP": 4,
+        "FN": 4
+      }
+    },
+    "n_no_segmentation_summary": 0,
+    "mean_sites": {
+      "FN": 3.2,
+      "FP": 3.1666666666666665,
+      "correct": 3.520408163265306
+    }
+  },
+  "case_spectra_generated": true
+}

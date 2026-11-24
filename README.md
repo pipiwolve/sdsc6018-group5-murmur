@@ -1,59 +1,92 @@
 # SDSC 6018 Group 5
 
-**Pediatric heart-murmur screening from phonocardiogram recordings: ranking, calibration, and abstention**
+**Pediatric heart-murmur screening from phonocardiogram recordings**
 
-Repository maintained by **CHEN Pengjian** (student number 60214097), GitHub account `pipiwolve`.
-
-| Name | Student number |
+| Group member | Student number |
 |---|---|
 | CHEN Pengjian | 60214097 |
 | YANG Jianing | 59942823 |
 | XIA Ningze | 61097102 |
 | WONG Wai Kwan | 60690110 |
 
-## Question
+Repository maintained by **CHEN Pengjian** (`pipiwolve`).
 
-Using only information available at a pediatric screening visit, can a gradient-boosted model or a small convolutional network rank Present murmurs ahead of Absent murmurs better than L2 logistic regression? After calibration, are the probabilities more accurate than always guessing the training prevalence, and does withholding the uncertain middle recover the annotator’s Unknown label?
+[Final report (PDF)](report/SDSC6018_Group5_report.pdf) · [Editable report (Word)](report/SDSC6018_Group5_report.docx) · [Archived review results](data/processed/review_analysis.json)
 
-The English report is `report/SDSC6018_Group5_report.pdf`. The Word file beside it is the source. Before submission, export the PDF from Word in Times New Roman, 12 pt, single spacing. The converter used for the PDF in this repository substituted Latin Modern.
+## Research questions
 
-## Result on the locked test split
+1. Can XGBoost or a small 1D convolutional neural network rank children labeled Present above those labeled Absent more effectively than L2 logistic regression?
+2. How closely do calibrated probabilities agree with observed Present rates overall and by age and sex? With at least 80% labeled coverage on validation, how often does a central abstention band withhold children the human expert labeled Unknown?
 
-The model was chosen by validation average precision before the test labels were used. The convolutional network is the selected model.
+We linked repeat visits before splitting the 872 children. Model selection, calibration and policy thresholds used training or validation data. The locked test split contains 121 labeled children (23 Present) and 10 additional children labeled Unknown.
 
-| Model | AUROC | Average precision | Brier, raw | Brier, calibrated |
+## Main results
+
+| Model | Test AUROC (raw) | Test AUPRC (raw) | Test Brier (raw) | Test Brier (isotonic) |
 |---|---:|---:|---:|---:|
-| Logistic regression | 0.756 | 0.519 | 0.183 | 0.138 |
+| L2 logistic regression | 0.756 | 0.519 | 0.183 | 0.138 |
 | XGBoost | 0.738 | 0.522 | 0.146 | 0.124 |
 | 1D CNN | 0.862 | 0.685 | 0.144 | 0.099 |
-| Always training prevalence | 0.500 | 0.190 | 0.154 | 0.154 |
 
-The validation abstention band still answers 82.6% of labeled test children, at precision 0.80 among those answers. It withholds 3 of 10 Unknown children. On the test set their median calibrated score is 0.08, the same as Absent.
+The test Present rate was 0.190. Predicting the training prevalence gave a test Brier score of 0.154. The CNN was selected by raw validation AUPRC. Its paired AUROC difference versus logistic regression was +0.107 (95% child-level bootstrap interval +0.029 to +0.194). The paired AUPRC interval included zero. Small age and sex subgroups limit conclusions about group calibration.
 
-The same network trained on 2014 visits and tested on 2015 visits reaches raw AUROC 0.724 and average precision 0.552. The random split mixes both summers and is the more optimistic ranking.
+| Selective CNN metric on test | Count | Estimate |
+|---|---:|---:|
+| Coverage among labeled children | 100/121 | 82.6% |
+| PPV among answered positive classifications | 12/15 | 80.0% |
+| Recall within answered labeled children | 12/17 | 70.6% |
+| Overall recall including withheld Present cases | 12/23 | 52.2% |
+| Unknown share of all withheld children | 3/24 | 12.5% |
+| Unknown children withheld | 3/10 | 30.0% |
 
-## What is in this repository
+The band withheld six Present children. The median calibrated score was 0.08 for both Unknown and Absent children. In the temporal evaluation, the CNN trained on 2014 and tested on 2015 reached AUROC 0.724 and AUPRC 0.552. Training size and test case mix also differed from the mixed-year random split.
 
-- `scripts/01` through `06`, and `scripts/08`: subject table, quality checks, features, tabular models, the CNN, the abstention rule, and the 2014-to-2015 check.
-- `data/processed/`: the subject table, feature table, predictions, metric files, error cases, and figures.
-- `report/`: the English report.
+## Reproduce the study
 
-Raw CirCor waveforms are not in this repository. Download PhysioNet version 1.0.3 from `https://physionet-open.s3.amazonaws.com/circor-heart-sound/circor-heart-sound-1.0.3.zip` and place the extracted training files where `scripts/03_extract_features.py` expects them (`data/raw/circor-heart-sound-1.0.3/training_data`). The published counts can be checked without the audio from the files already in `data/processed/`.
+Use Python 3.12. Run the commands from the repository root.
 
-## Reproduce
+### Verify results from archived predictions
+
+This path needs neither audio nor model training. It recomputes the result tables and the calibration and score-distribution figures. The separate output directory keeps the archived results intact.
 
 ```bash
-python3 scripts/01_build_subject_table.py
-python3 scripts/02_validate_data_quality.py
-python3 scripts/03_extract_features.py
-python3 scripts/04_train_tabular.py
-python3 scripts/05_train_cnn.py
-python3 scripts/06_cnn_decision.py
-python3 scripts/08_campaign_cnn.py
+python3.12 -m venv .venv
+source .venv/bin/activate
+python -m pip install -r requirements.txt
+python scripts/09_review_analysis.py --output-dir build/review
 ```
 
-Seed 6018. Unknown labels are not used for training, threshold selection, or the abstention band. The test split is scored once after those choices are fixed. The 2014-to-2015 script does not change the primary model.
+Compare `build/review/review_analysis.json` with [the archived review results](data/processed/review_analysis.json). The case-spectra flag is false when audio is unavailable. For the three figures, including the four illustrative case spectrograms, run the same command after installing the raw data below. To regenerate the editable report from the committed results and figures, run `python scripts/07_write_report.py`.
 
-## Data and ethics
+### Rebuild the cohort and retrain
 
-CirCor DigiScope Phonocardiogram Dataset, version 1.0.3, DOI 10.13026/tshs-mw03. Open Data Commons Attribution. The public training release is used. The cardiologist outcome and the murmur descriptors are not model inputs. Scores from this study are not a screening recommendation.
+Use a separate clone or worktree. These scripts overwrite the corresponding files under `data/processed/`. Install the extra dependencies for training on Linux (x86-64):
+
+```bash
+python -m pip install -r requirements-training.txt
+python -m pip install --index-url https://download.pytorch.org/whl/cpu 'torch==2.7.1+cpu'
+```
+
+Download the [official CirCor v1.0.3 archive](https://physionet-open.s3.amazonaws.com/circor-heart-sound/circor-heart-sound-1.0.3.zip). Extract it under `data/raw/` and rename its top-level folder to `circor-heart-sound-1.0.3`. The scripts expect the following layout:
+
+```text
+data/raw/circor-heart-sound-1.0.3/
+├── training_data.csv
+└── training_data/       # .txt, .hea, .wav and .tsv files
+```
+
+```bash
+python scripts/01_build_subject_table.py
+python scripts/02_validate_data_quality.py
+python scripts/03_extract_features.py
+python scripts/04_train_tabular.py
+python scripts/05_train_cnn.py
+python scripts/06_cnn_decision.py
+python scripts/08_campaign_cnn.py
+```
+
+Seed 6018 is fixed. Retrained scores can vary across library versions and platforms. The review script and report generator use the archived predictions and case examples cited in the report. See the [data file guide](data/README.md) for outputs.
+
+## Data and scope
+
+We use the public training release of the [CirCor DigiScope Phonocardiogram Dataset v1.0.3](https://doi.org/10.13026/tshs-mw03), licensed under Open Data Commons Attribution. The raw archive is stored outside Git. The target is the published expert murmur annotation. Clinical outcomes and detailed murmur descriptors are excluded from model inputs. The tabular models use published S1/S2 segmentations, which were reviewed or corrected by experts. The CNN uses waveforms without those segmentation annotations. The study evaluates retrospective screening data and does not establish the safety or effectiveness of clinical use.

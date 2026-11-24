@@ -61,14 +61,30 @@ def abstain(frame: pd.DataFrame, width: float) -> dict:
     fp = np.sum(predicted_pos & answered_labeled & (y_true == 0))
     fn = np.sum((~predicted_pos) & answered_labeled & (y_true == 1))
     abstained = ~answered
+    present = labeled & (y_true == 1)
+    n_present = int(present.sum())
+    abstained_present = int((abstained & present).sum())
+    ppv = float(tp / (tp + fp)) if (tp + fp) else None
+    within_answered_recall = float(tp / (tp + fn)) if (tp + fn) else None
     return {
         "half_width": width,
         "labeled_coverage": float(np.mean(answered[labeled])),
-        "precision_answered": float(tp / (tp + fp)) if (tp + fp) else None,
-        "recall_answered": float(tp / (tp + fn)) if (tp + fn) else None,
+        "ppv_answered_positive": ppv,
+        "recall_within_answered_labeled": within_answered_recall,
+        "overall_recall_including_abstained_present": float(tp / n_present) if n_present else None,
+        # Retain the old fields for consumers of the decision JSON.
+        "precision_answered": ppv,
+        "recall_answered": within_answered_recall,
         "unknown_among_abstained": float(np.mean(unknown[abstained])) if abstained.any() else None,
         "unknown_abstained": float(np.mean(abstained[unknown])) if unknown.any() else None,
         "n_abstained": int(abstained.sum()),
+        "n_labeled": int(labeled.sum()),
+        "n_answered_labeled": int(answered_labeled.sum()),
+        "n_present": n_present,
+        "n_abstained_present": abstained_present,
+        "tp_answered": int(tp),
+        "fp_answered": int(fp),
+        "fn_answered": int(fn),
     }
 
 
@@ -116,7 +132,6 @@ def main() -> None:
     summary = {}
     for kind, part in labeled.groupby("error"):
         summary[kind] = {"n": int(len(part)), "mean_sites": float(part["n_standard_sites"].mean()), "age": part["age"].fillna("Missing").value_counts().to_dict()}
-    y_bin = (test["murmur"] == "Present").astype(int).to_numpy()
     labeled_mask = test["supervised"].to_numpy()
     bins = []
     edges = np.linspace(0, 1, 9)
@@ -129,13 +144,20 @@ def main() -> None:
         bins.append({"mean_score": float(scores[mask].mean()), "observed": float(y_scores[mask].mean()), "n": int(mask.sum())})
     fig, ax = plt.subplots(figsize=(5.2, 4.2))
     ax.plot([0, 1], [0, 1], color="#112D4E", linewidth=1)
-    ax.plot([row["mean_score"] for row in bins], [row["observed"] for row in bins], marker="o", color="#3F72AF")
+    for row in bins:
+        x, y = row["mean_score"], row["observed"]
+        ax.scatter(x, y, color="#3F72AF")
+        right = x > 0.9
+        ax.annotate(f"n = {row['n']}", (x, y), xytext=(-8 if right else 8, 0),
+                    textcoords="offset points", ha="right" if right else "left", va="center")
     ax.set_xlabel("Mean calibrated score")
     ax.set_ylabel("Observed Present rate")
-    ax.set_xlim(0, 1)
-    ax.set_ylim(0, 1)
+    ax.set_xlim(-0.035, 1.035)
+    ax.set_ylim(-0.035, 1.035)
     fig.tight_layout()
-    fig.savefig(PROCESSED / "figures" / "reliability_cnn_test.png", dpi=160)
+    figures = PROCESSED / "figures"
+    figures.mkdir(parents=True, exist_ok=True)
+    fig.savefig(figures / "reliability_cnn_test.png", dpi=160)
     plt.close(fig)
     result = {
         "threshold": threshold,
